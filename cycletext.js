@@ -1,23 +1,66 @@
 (function($){
-  $.fn.cycletext = function(quotes, options){
-    var settings = $.extend({
+  if (typeof $ === "undefined"){
+    return;
+  }
+  function cycletext(selector, quotes, options){
+    var self = this;
+    if (typeof selector === "object"){
+      options = quotes;
+      quotes = selector;
+      self = document.querySelector(selector);
+    }
+    var settings = {
       fadeInSpeed: 2000,
       displayDuration: 7000,
       fadeOutSpeed: 2000,
       delay: 0,
       element: "p"
-    }, options);
-    var self = this;
+    };
+    if (typeof options === "object"){
+      for (var option in options){
+        settings[option] = options[option];
+      }
+    }
     quotes.forEach(function(quote){
-      var el = $("<" + settings.element + ">" + quote + "</" + settings.element + ">").hide();
-      $(self).append(el);
+      var el = document.createElement(settings.element);
+      el.innerHTML = quote;
+      el.style.display = none;
+      self.appendChild(el);
     });
+
+    function fadeIn(el, time) {
+      el.style.opacity = 0;
+      var last = +new Date();
+      var tick = function() {
+        el.style.opacity = +el.style.opacity + (new Date() - last) / time;
+        last = +new Date();
+        if (+el.style.opacity < 1) {
+          (window.requestAnimationFrame && requestAnimationFrame(tick)) || setTimeout(tick, 16);
+        }
+      };
+      tick();
+    }
+
+    function fadeOut(el, time) {
+      el.style.opacity = 1;
+      var last = +new Date();
+      var tick = function() {
+        el.style.opacity = -el.style.opacity - (new Date() - last) / time;
+        last = +new Date();
+        if (+el.style.opacity > 0) {
+          (window.requestAnimationFrame && requestAnimationFrame(tick)) || setTimeout(tick, 16);
+        }
+      };
+      tick();
+    }
+
     var i = 0;
     function displayQuote(){
-      $(self).children().eq(i).fadeIn(settings.fadeInSpeed);
+      var el = self.children.eq(i);
+      fadeIn(el, settings.fadeInSpeed);
       // sets duration of fadeout AND duration to display quote
       var fadeOutTimer = setTimeout(function(){
-        $(self).children().eq(i).fadeOut(settings.fadeOutSpeed);
+        fadeOut(el, settings.fadeOutSpeed);
         i++;
         // resets counter
         if (i === quotes.length){
@@ -33,6 +76,6 @@
     }
     displayQuote();
 
-  };
+  }
   return this;
-}(jQuery));
+}(window.jQuery));
