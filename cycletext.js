@@ -1,10 +1,10 @@
-// note that this isn't working because the main file can't find cycletext() in the IIFEE; the cycletext function is up to date though
+// note that this isn't working because the main file can't find cycleText() in the IIFEE; the cycleText function is up to date though
 
 (function($){
   if (typeof $ === "undefined"){
     return;
   }
-  function cycletext(selector, quotes, options){
+  function cycleText(selector, quotes, options){
     if (typeof selector === "object"){
       options = quotes;
       quotes = selector;

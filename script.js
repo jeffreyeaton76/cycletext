@@ -7,7 +7,7 @@ var options = {
   delay: 500
 };
 
-function cycletext(selector, quotes, options){
+function cycleText(selector, quotes, options){
   if (typeof selector === "object"){
     options = quotes;
     quotes = selector;
@@ -96,5 +96,5 @@ function cycletext(selector, quotes, options){
   displayQuote();
 }
 
-cycletext("#example", myArray, options);
+cycleText("#example", myArray, options);
 
