@@ -59,8 +59,9 @@
           (window.requestAnimationFrame && requestAnimationFrame(tick)) || setTimeout(tick, 16);
         }
         // I'm trying to get rid of the div so the next one appears in the same spot; this isn't accomplishing that
+        console.log(el.style.opacity);
         if (el.style.opacity < 0){
-          el.style.visibility = "none";
+          el.style.display = "none";
         }
       };
       tick();
