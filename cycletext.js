@@ -9,6 +9,33 @@
       selector = document.querySelector(selector);
     }
 
+    // browsers change setIntervals and requestAnimationFrames when the tab isn't active; this section will help us deal with that
+    var hidden, visibilityChange;
+    if (typeof document.hidden !== "undefined") { // Opera 12.10 and Firefox 18 and later support
+      hidden = "hidden";
+      visibilityChange = "visibilitychange";
+    } else if (typeof document.mozHidden !== "undefined") {
+      hidden = "mozHidden";
+      visibilityChange = "mozvisibilitychange";
+    } else if (typeof document.msHidden !== "undefined") {
+      hidden = "msHidden";
+      visibilityChange = "msvisibilitychange";
+    } else if (typeof document.webkitHidden !== "undefined") {
+      hidden = "webkitHidden";
+      visibilityChange = "webkitvisibilitychange";
+    }
+
+    function handleVisibilityChange() {
+      if (document[hidden]) {
+        return;
+      }
+      else {
+        displayQuote();
+      }
+    }
+
+    document.addEventListener(visibilityChange, handleVisibilityChange, false);
+
     // default settings
     var settings = {
       fadeInSpeed: 2000,
@@ -25,10 +52,11 @@
     }
 
     // creates elements for the quote to reside in
-    quotes.forEach(function(quote){
+    quotes.forEach(function(quote, i){
       var el = document.createElement(settings.element);
       el.innerHTML = quote;
       el.style.display = "none";
+      el.id = "cycletext" + i;
       self[0].appendChild(el);
     });
 
@@ -36,11 +64,11 @@
     function fadeIn(el, time) {
       el.style.display = "block";
       el.style.opacity = 0;
-      var last = +new Date();
+      var last = Date.now();
       var tick = function() {
-        el.style.opacity = +el.style.opacity + (new Date() - last) / time;
-        last = +new Date();
-        if (+el.style.opacity < 1) {
+        el.style.opacity = +el.style.opacity + (Date.now() - last) / time;
+        last = Date.now();
+        if (+el.style.opacity <= 1) {
           (window.requestAnimationFrame && requestAnimationFrame(tick)) || setTimeout(tick, 16);
         }
       };
@@ -49,15 +77,14 @@
 
     // non-jQuery fadeOut
     function fadeOut(el, time) {
-      el.style.opacity = 1;
-      var last = +new Date();
+      var last = Date.now();
       var tick = function() {
-        el.style.opacity = +el.style.opacity - (new Date() - last) / time;
-        last = +new Date();
+        el.style.opacity = +el.style.opacity - (Date.now() - last) / time;
+        last = Date.now();
         if (+el.style.opacity > 0) {
           (window.requestAnimationFrame && requestAnimationFrame(tick)) || setTimeout(tick, 16);
         }
-        if (el.style.opacity < 0){
+        if (el.style.opacity <= 0){
           el.style.display = "none";
         }
       };
@@ -67,7 +94,7 @@
     // displays each quote in sequence
     var i = 0;
     function displayQuote(){
-      var el = document.getElementsByTagName(settings.element).item(i);
+      var el = document.getElementById("cycletext" + i);
       fadeIn(el, settings.fadeInSpeed);
       // sets duration of fadeout AND duration to display quote
       var fadeOutTimer = setTimeout(function(){
@@ -79,10 +106,16 @@
         }
       }, settings.displayDuration);
       // sets duration between initiating the display of a quote and the next initiation of displaying a quote
-      setTimeout(function(){
+      var fadeInTimer = setTimeout(function(){
         clearTimeout(fadeOutTimer);
         // recursively calls the displayQuote function
-        displayQuote();
+        if (document[hidden]) {
+          el.style.display = "none";
+          return;
+        }
+        else {
+          displayQuote();
+        }
       }, settings.fadeOutSpeed + settings.displayDuration + settings.delay);
     }
     displayQuote();
