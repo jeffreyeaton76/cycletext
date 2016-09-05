@@ -1,5 +1,4 @@
-// $(document).ready(function(){
-//
+$(document).ready(function(){
 
 myArray = ["Hello!", "Wonderful!", "You're the best!", "Hooray!"];
 
@@ -10,8 +9,6 @@ var options = {
   delay: 500
 };
 
-cycleText("#example", myArray, options);
+$("#example").cycleText(myArray, options);
 
-// $("#example2").cycleText(myArray, options);
-//
-// });
+});

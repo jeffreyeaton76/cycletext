@@ -1,5 +1,6 @@
 (function cycleText($){
-  window.cycleText = function(selector, quotes, options){
+  $.fn.cycleText = function(selector, quotes, options){
+    var self = this;
     if (typeof selector === "object"){
       options = quotes;
       quotes = selector;
@@ -28,7 +29,7 @@
       var el = document.createElement(settings.element);
       el.innerHTML = quote;
       el.style.display = "none";
-      selector.appendChild(el);
+      self[0].appendChild(el);
     });
 
     // non-jQuery fadeIn
