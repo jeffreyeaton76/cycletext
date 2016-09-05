@@ -1,0 +1,23 @@
+{
+  "name": "cycletext",
+  "version": "1.0.0",
+  "description": "UMD jQuery plugin to cycle through display quotes",
+  "main": "cycletext.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jeffreyeaton76/cycletext.git"
+  },
+  "keywords": [
+    "jquery-plugin"
+    "ecosystem:jquery"
+  ],
+  "author": "Jeffrey Eaton",
+  "license": "CPL-1.0",
+  "bugs": {
+    "url": "https://github.com/jeffreyeaton76/cycletext/issues"
+  },
+  "homepage": "https://github.com/jeffreyeaton76/cycletext#readme"
+}
