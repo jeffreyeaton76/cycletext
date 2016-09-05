@@ -150,9 +150,3 @@
   return this;
 }));
 
-
-
-
-// (function cycleText($){
-//   $.fn.cycleText = function
-
