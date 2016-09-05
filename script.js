@@ -1,3 +1,6 @@
+// $(document).ready(function(){
+//
+
 myArray = ["Hello!", "Wonderful!", "You're the best!", "Hooray!"];
 
 var options = {
@@ -8,3 +11,7 @@ var options = {
 };
 
 cycleText("#example", myArray, options);
+
+// $("#example2").cycleText(myArray, options);
+//
+// });

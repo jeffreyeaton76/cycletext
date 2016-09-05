@@ -1,6 +1,4 @@
-// note that this isn't working because the main file can't find cycleText() in the IIFEE; the cycleText function is up to date though
-
-(function($){
+(function cycleText($){
   window.cycleText = function(selector, quotes, options){
     if (typeof selector === "object"){
       options = quotes;
@@ -58,8 +56,6 @@
         if (+el.style.opacity > 0) {
           (window.requestAnimationFrame && requestAnimationFrame(tick)) || setTimeout(tick, 16);
         }
-        // I'm trying to get rid of the div so the next one appears in the same spot; this isn't accomplishing that
-        console.log(el.style.opacity);
         if (el.style.opacity < 0){
           el.style.display = "none";
         }
@@ -89,6 +85,6 @@
       }, settings.fadeOutSpeed + settings.displayDuration + settings.delay);
     }
     displayQuote();
-  }
+  };
   return this;
 }(window.jQuery));
