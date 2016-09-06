@@ -11,11 +11,10 @@
     "url": "git+https://github.com/jeffreyeaton76/cycletext.git"
   },
   "keywords": [
-    "jquery-plugin"
-    "ecosystem:jquery"
+    "jquery-plugin ecosystem:jquery"
   ],
   "author": "Jeffrey Eaton",
-  "license": "CPL-1.0",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/jeffreyeaton76/cycletext/issues"
   },
