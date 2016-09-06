@@ -1,6 +1,6 @@
 {
   "name": "cycletext",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "UMD jQuery plugin to cycle through display quotes",
   "main": "cycletext.js",
   "scripts": {
